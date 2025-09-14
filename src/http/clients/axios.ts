@@ -1,4 +1,5 @@
 import axios, { type AxiosInstance, type CreateAxiosDefaults } from "axios";
+import { cancelApi } from "../utils/cancelApi.js";
 
 export type BaseRequestConfig = {
   baseURL: string;
@@ -45,7 +46,7 @@ const defaultRequestConfig: RequestConfig = {
   maxRedirects: 21,
   beforeRedirect: () => {},
   proxy: false,
-  signal: new AbortSignal(),
+  signal: cancelApi(30000).signal,
   onUploadProgress: () => {},
   onDownloadProgress: () => {},
   transitional: {
@@ -58,7 +59,7 @@ const defaultRequestConfig: RequestConfig = {
   env: {
     FormData: FormData,
   },
-  validateStatus: null,
+  validateStatus: (status: number) => status >= 200 && status < 300,
   allowAbsoluteUrls: true,
   fullResponse: false,
   swr: false,
