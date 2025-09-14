@@ -1,15 +1,16 @@
 import { axiosService } from "./service/axios.js";
-import { endpoint } from "./utils/endpoint.js";
+import type { RequestConfig } from "./clients/axios.ts";
 
-export const http = (name: string, config: any) => {
-  return () => {
-    if (name === "axios") {
-      const axiosClient = axiosService(config);
-      const axiosEndpoint = endpoint(axiosClient);
+export type ClientsType = "axios" | "fetch";
 
-      return axiosEndpoint;
-    }
+export const http = (name: ClientsType, requestConfig: RequestConfig) => {
+  let client;
 
-    throw new Error(`HTTP service ${name} not found`);
-  };
+  if (name === "axios") {
+    client = axiosService(requestConfig);
+
+    return client;
+  }
+
+  throw new Error(`HTTP service ${name} not found`);
 };

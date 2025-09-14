@@ -1,4 +1,4 @@
-import { createAxios } from "../clients/axios.js";
+import { createAxios, type RequestConfig } from "../clients/axios.js";
 import {
   deleteMethod,
   getMethod,
@@ -7,7 +7,7 @@ import {
   putMethod,
 } from "../methods/index.js";
 
-export const axiosService = (config: any) => {
+export const axiosService = (config: RequestConfig) => {
   const axiosClient = createAxios(config);
 
   axiosClient.interceptors.request.use(async (config) => {

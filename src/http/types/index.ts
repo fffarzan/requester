@@ -1,5 +1,3 @@
-import type { AxiosResponse } from "axios";
-
 export type HttpServiceType = {
   baseURL: string;
   defaultHeaders: Record<string, string>;
@@ -27,29 +25,3 @@ export type HttpServiceType = {
   // Error interceptor hook (can be overridden)
   onError(error: any): Promise<never>;
 };
-
-export type ExtraOptions = {
-  swr?: boolean;
-  query?: boolean;
-  queryOptions?: any;
-  cancelable?: boolean;
-  debounce?: number;
-  timeout?: number;
-  signal?: any | undefined;
-  fullResponse?: boolean;
-};
-
-export type Endpoint<T, U> = (
-  parameters: T,
-  extraOptions?: ExtraOptions
-) => Promise<U>;
-
-export type ResponseType<U> = {
-  data: U;
-};
-
-export type Fn<T, U> = (
-  client: any,
-  parameters: T,
-  options?: ExtraOptions
-) => Promise<U> | Promise<AxiosResponse<U>>;
