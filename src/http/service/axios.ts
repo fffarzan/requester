@@ -1,4 +1,9 @@
 import { createAxios, type RequestConfig } from "../clients/axios.js";
+import { onSendRequest, onRejectedRequest } from "../interceptors/request.js";
+import {
+  onFulfilledResponse,
+  onRejectedResponse,
+} from "../interceptors/response.js";
 import {
   deleteMethod,
   getMethod,
@@ -10,13 +15,11 @@ import {
 export const axiosService = (config: RequestConfig) => {
   const axiosClient = createAxios(config);
 
-  axiosClient.interceptors.request.use(async (config) => {
-    return config;
-  });
-  axiosClient.interceptors.response.use(async (response) => {
-    return response;
-  });
-
+  axiosClient.interceptors.request.use(onSendRequest, onRejectedRequest);
+  axiosClient.interceptors.response.use(
+    onFulfilledResponse,
+    onRejectedResponse
+  );
   axiosClient.get = getMethod(axiosClient);
   axiosClient.post = postMethod(axiosClient);
   axiosClient.put = putMethod(axiosClient);
