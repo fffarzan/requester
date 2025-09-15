@@ -8,9 +8,6 @@ export type BaseRequestConfig = {
 export type RequestConfig = CreateAxiosDefaults & {
   fullResponse?: boolean;
   debounce?: number;
-  swr?: boolean;
-  query?: boolean;
-  queryOptions?: any;
   cancelable?: boolean;
 };
 
@@ -26,12 +23,7 @@ const defaultRequestConfig: RequestConfig = {
   baseURL: "",
   params: {},
   data: {},
-  headers: {
-    Accept: "application/json, text/plain, */*",
-    "Content-Type": "application/json",
-    "User-Agent": "axios/1.11.0",
-    "Accept-Encoding": "gzip, compress, deflate, br",
-  },
+  headers: {},
   url: "",
   method: "",
   transformRequest: [],
@@ -62,9 +54,7 @@ const defaultRequestConfig: RequestConfig = {
   validateStatus: (status: number) => status >= 200 && status < 300,
   allowAbsoluteUrls: true,
   fullResponse: false,
-  swr: false,
-  query: false,
-  cancelable: false,
+  // retry: 0,
 };
 
 export const createAxios = (config: RequestConfig): AxiosInstance => {

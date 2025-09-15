@@ -5,8 +5,6 @@ export function mergeHeaders(
   return {
     Accept: "application/json, text/plain, */*",
     "Content-Type": "application/json",
-    "User-Agent": "axios/1.11.0",
-    "Accept-Encoding": "gzip, compress, deflate, br",
     ...baseHeaders,
     ...customHeaders,
   };
