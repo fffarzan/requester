@@ -1,6 +1,8 @@
 import type { AxiosResponse } from "axios";
 
+export type Cb<T, U> = (params: T) => Promise<AxiosResponse<U>>;
+
 export const endpoint =
-  <T, U>(callbackFn: (parameters: T) => Promise<AxiosResponse<U>>) =>
-  (parameters: T) =>
-    callbackFn(parameters);
+  <T, U>(cb: Cb<T, U>) =>
+  (params: T) =>
+    cb(params);
